@@ -1,12 +1,11 @@
-.App-header {
-  background-color: #282c34;
-  padding: 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+h1 {
+  margin: 0;
 }
+
+header, footer {
+  padding: 20px 20px;
+}
+
 
 button {
   border: none;
@@ -24,7 +23,11 @@ button {
 }
 
 .screen {
-  padding: 150px 0;
+  height: 300px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  align-items: center;
   background-color: #7c7875;
   border-radius: 30px 30px 0px 0px;
   color: white;
@@ -70,7 +73,7 @@ button {
 .values {
   display: flex;
   flex-wrap: wrap;
-  max-width: 67%; 
+  max-width: 67%;
 }
 
 .calc-controlls-container {
@@ -95,4 +98,8 @@ button {
 
 .active {
   cursor: pointer;
+}
+
+footer {
+  text-align: right;
 }
