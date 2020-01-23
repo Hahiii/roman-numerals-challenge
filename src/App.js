@@ -73,6 +73,10 @@ function App() {
           </div>
         </div>
       </section>
+      <footer>
+        <p> Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update">Erik</a>
+        </p>
+      </footer>
     </div>
   );
 }
