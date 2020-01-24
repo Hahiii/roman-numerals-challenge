@@ -128,10 +128,10 @@ function App() {
               <div className="calc-controlls-container">
                 <button className="calc-item"></button>
                 <button className="calc-item"></button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>+</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>x</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>-</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>/</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#43;</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#215;</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#8722;</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#247;</button>
               </div>
             </div>
           </div>
