@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import romanNumeralsDecimal from './RomanToDecimal'
 import decimalRoman from './DecimalToRoman'
+import deleteIcon from './images/delete.png'
+
 
 function App() {
   const [res, setRes] = useState("");
@@ -105,8 +107,8 @@ function App() {
           </div>
           <div className="keyboard">
             <div className="controlls-container">
-              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>reset</button>
-              <button className="controll two active" data-reset="C" onClick={(e) => handleClick(e.target)}>C</button>
+              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>Reset</button>
+              <button className="controll two active img-container" data-reset="C" onClick={(e) => handleClick(e.target)}><img src={deleteIcon} className="two"/></button>
               <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
                 if (cal) {
                   handleClick(e.target);
@@ -138,7 +140,7 @@ function App() {
         </div>
       </section>
       <footer>
-        <p> Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update">Erik</a>
+        <p> Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update" target="_blank">Erik</a>
         </p>
       </footer>
     </div>
