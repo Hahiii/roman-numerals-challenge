@@ -10,6 +10,7 @@ function App() {
   let input1 = "";
   let input2 = "";
   let action = "";
+  let actionValue = "";
   let calc = useRef();
   let cal = false;
   let error = "wrong input";
@@ -17,7 +18,23 @@ function App() {
   let display = useRef()
 
   const calculate = (a, b) => {
-    let sum = a + b
+    let sum = 0
+    switch (actionValue) {
+      case "add":
+        sum = a + b;
+        break;
+      case "subtract":
+        sum = a - b;
+
+        break;
+      case "multiplication":
+        sum = a * b;
+        break;
+      case "division":
+        sum = a / b;
+        break;
+    }
+
     let res = decimalRoman(sum)
 
     if (res) {
@@ -26,6 +43,7 @@ function App() {
     }
     inOutPut.current.innerHTML = error;
   }
+
   const checkInput = (toCheck) => {
     if (romanNumeralsDecimal(toCheck) === Number(romanNumeralsDecimal(toCheck))) {
       display.current.classList.remove("error")
@@ -48,6 +66,7 @@ function App() {
 
     if (elem.dataset.action === "action") {
       action = elem.innerHTML;
+      actionValue = elem.dataset.actionvalue
       inOutPut.current.innerHTML = `${input}${action}`;
     }
 
@@ -106,7 +125,7 @@ function App() {
           <div className="keyboard">
             <div className="controlls-container">
               <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>Reset</button>
-              <button className="controll two active img-container"><img src={deleteIcon} className="two" alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)}/></button>
+              <button className="controll two active img-container"><img src={deleteIcon} className="two" alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)} /></button>
               <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
                 if (cal) {
                   handleClick(e.target);
@@ -128,10 +147,10 @@ function App() {
               <div className="calc-controlls-container">
                 <button className="calc-item"></button>
                 <button className="calc-item"></button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#43;</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#215;</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#8722;</button>
-                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>&#247;</button>
+                <button className="calc-item active" data-action="action" data-actionvalue="add" onClick={(e) => handleClick(e.target)}>&#43;</button>
+                <button className="calc-item active" data-action="action" data-actionvalue="multiplication" onClick={(e) => handleClick(e.target)}>&#215;</button>
+                <button className="calc-item active" data-action="action" data-actionvalue="subtract" onClick={(e) => handleClick(e.target)}>&#8722;</button>
+                <button className="calc-item active" data-action="action" data-actionvalue="division" onClick={(e) => handleClick(e.target)}>&#247;</button>
               </div>
             </div>
           </div>
