@@ -59,7 +59,7 @@ function App() {
         }, 1000);
         return;
       }
-      
+
       let one = romanNumeralsDecimal(input1);
       let two = romanNumeralsDecimal(input2);
       calculate(one, two);
@@ -92,7 +92,6 @@ function App() {
       cal = false;
     }
   }
-
 
   return (
     <div className="App">
