@@ -2,10 +2,10 @@ h1 {
   margin: 0;
 }
 
-header, footer {
+header,
+footer {
   padding: 20px 20px;
 }
-
 
 button {
   border: none;
@@ -17,9 +17,11 @@ button {
   max-width: 400px;
   margin: 0 auto;
   background-color: #f6ebe3;
-  padding: 5px 10px;
   border-radius: 30px;
   color: #f4ece3;
+  box-shadow: 0 0 30px pink;
+  border: 1px solid #dedede;
+  padding: 10px 10px 30px
 }
 
 .screen {
@@ -29,7 +31,7 @@ button {
   padding: 0 20px;
   align-items: center;
   background-color: #7c7875;
-  border-radius: 30px 30px 0px 0px;
+  border-radius: 23px 23px 0px 0px;
   color: white;
 }
 
