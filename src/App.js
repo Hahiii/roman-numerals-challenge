@@ -9,16 +9,16 @@ function App() {
   let input1 = "";
   let input2 = "";
   let action = "";
-  let check = "";
+  let calc = useRef();
+  let cal = false;
   let error = "wrong input";
   let inOutPut = useRef()
   let display = useRef()
 
   const calculate = (a, b) => {
-    let sum = a + b;
+    let sum = a + b
     let res = decimalRoman(sum)
-    console.log(res);
-    
+
     setRes(res);
     if (res) {
       inOutPut.current.innerHTML = res;
@@ -38,52 +38,58 @@ function App() {
 
 
   const handleClick = (elem) => {
-    if (action) {
 
-
-    }
-    if (elem.id === "value") {
+    if (elem.dataset.values === "value") {
       !action ? input1 += elem.innerHTML : input2 += elem.innerHTML;
       !action ? input = `${input1}` : input = `${input1}${action}${input2}`
       inOutPut.current.innerHTML = input;
       !action ? checkInput(input1) : checkInput(input2);
     }
 
-    if (elem.id === "action") {
+    if (elem.dataset.action === "action") {
       action = elem.innerHTML;
       inOutPut.current.innerHTML = `${input}${action}`;
     }
 
-    if (elem.id === "reset") {
-      if (elem.innerHTML === "=") {
-        if (!action) {
-          inOutPut.current.innerHTML = error;
-          setTimeout(() => {
-            inOutPut.current.innerHTML = input;
-          }, 1000);
-          return;
-        }
-        let one = romanNumeralsDecimal(input1);
-        let two = romanNumeralsDecimal(input2);
-        calculate(one, two);
+    if (elem.dataset.reset === "=") {
+      if (!action) {
+        inOutPut.current.innerHTML = error;
+        setTimeout(() => {
+          inOutPut.current.innerHTML = input;
+        }, 1000);
+        return;
       }
+      
+      let one = romanNumeralsDecimal(input1);
+      let two = romanNumeralsDecimal(input2);
+      calculate(one, two);
+    }
 
-      if (elem.innerHTML === "C") {
-        let removed = input.split("").pop()
-        !action && removed !== action ? input1 = input1.slice(0, input1.length - 1) : input2 = input2.slice(0, input2.length - 1);
-        !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
-        if (removed === action) {
-          action = "";
-        }
-        !action ? checkInput(input1) : checkInput(input2);
-        inOutPut.current.innerHTML = input;
-      }
-
-      if (elem.innerHTML === "reset") {
-        inOutPut.current.innerHTML = "";
-        input = "";
+    if (elem.dataset.reset === "C") {
+      let removed = input.split("").pop()
+      !action && removed !== action ? input1 = input1.slice(0, input1.length - 1) : input2 = input2.slice(0, input2.length - 1);
+      !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
+      if (removed === action) {
         action = "";
       }
+
+      !action ? checkInput(input1) : checkInput(input2);
+      inOutPut.current.innerHTML = input;
+    }
+
+    if (elem.dataset.reset === "reset") {
+      inOutPut.current.innerHTML = "";
+      input1 = "";
+      input2 = "";
+      action = "";
+    }
+
+    if (input2) {
+      calc.current.classList.add("active")
+      cal = true;
+    } else {
+      calc.current.classList.remove("active")
+      cal = false;
     }
   }
 
@@ -100,29 +106,33 @@ function App() {
           </div>
           <div className="keyboard">
             <div className="controlls-container">
-              <button className="controll one active" id="reset" onClick={(e) => handleClick(e.target)}>reset</button>
-              <button className="controll two active" id="reset" onClick={(e) => handleClick(e.target)}>C</button>
-              <button className="controll tree active" id="reset" onClick={(e) => handleClick(e.target)}>=</button>
+              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>reset</button>
+              <button className="controll two active" data-reset="C" onClick={(e) => handleClick(e.target)}>C</button>
+              <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
+                if (cal) {
+                  handleClick(e.target);
+                }
+              }}>=</button>
             </div>
             <div className="values-container">
               <div className="values">
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>C</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>D</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>M</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>V</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>X</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>L</button>
-                <button className="val-item active" id="value" onClick={(e) => handleClick(e.target)}>I</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>C</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>D</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>M</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>V</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>X</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>L</button>
+                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>I</button>
                 <button className="val-item">.</button>
                 <button className="val-item">S</button>
               </div>
               <div className="calc-controlls-container">
                 <button className="calc-item"></button>
                 <button className="calc-item"></button>
-                <button className="calc-item active" id="action" onClick={(e) => handleClick(e.target)}>+</button>
-                <button className="calc-item active" id="action" onClick={(e) => handleClick(e.target)}>x</button>
-                <button className="calc-item active" id="action" onClick={(e) => handleClick(e.target)}>-</button>
-                <button className="calc-item active" id="action" onClick={(e) => handleClick(e.target)}>/</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>+</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>x</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>-</button>
+                <button className="calc-item active" data-action="action" onClick={(e) => handleClick(e.target)}>/</button>
               </div>
             </div>
           </div>
