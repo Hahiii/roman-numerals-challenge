@@ -57,18 +57,30 @@ img {
   text-align: center;
   font-size: 1.5rem;
   padding: 30px;
-  flex: 1;
+  flex: 1 0 33.33%;
   color: white;
 }
 
 .one {
   background: #d2666f;
 }
+
+.one:active {
+  background: #eb737d;
+}
 .two {
   background: #a66f72;
 }
+
+.two:active {
+  background: #c78689;
+}
 .tree {
   background: #b8b2ab;
+}
+
+.tree:active {
+  background: #a39d96;
 }
 
 .values-container {
@@ -82,14 +94,13 @@ img {
 .values {
   display: flex;
   flex-wrap: wrap;
-  max-width: 67%;
+  max-width: 66.66%;
 }
 
 .calc-controlls-container {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
-  background-color: #7c7875;
 }
 
 .calc-item {
@@ -97,6 +108,11 @@ img {
   padding: 20px;
   flex: 1;
   color: white;
+  background-color: #7c7875;
+}
+
+.calc-item:active {
+  background-color: #938d87;
 }
 
 .val-item {
