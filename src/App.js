@@ -36,7 +36,11 @@ function App() {
     }
 
     let res = decimalRoman(sum)
-
+    input = "";
+    input1 = "";
+    input2 = "";
+    action = "";
+    actionValue = "";
     if (res) {
       inOutPut.current.innerHTML = res;
       return;
@@ -44,8 +48,8 @@ function App() {
     inOutPut.current.innerHTML = error;
   }
 
-  const checkInput = (toCheck) => {
-    if (romanNumeralsDecimal(toCheck) === Number(romanNumeralsDecimal(toCheck))) {
+  const checkInput = (arg) => {
+    if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
       display.current.classList.remove("error")
       display.current.classList.add("right")
     } else {
@@ -54,9 +58,7 @@ function App() {
     }
   }
 
-
   const handleClick = (elem) => {
-
     if (elem.dataset.values === "value") {
       !action ? input1 += elem.innerHTML : input2 += elem.innerHTML;
       !action ? input = `${input1}` : input = `${input1}${action}${input2}`
@@ -71,14 +73,6 @@ function App() {
     }
 
     if (elem.dataset.reset === "=") {
-      if (!action) {
-        inOutPut.current.innerHTML = error;
-        setTimeout(() => {
-          inOutPut.current.innerHTML = input;
-        }, 1000);
-        return;
-      }
-
       let one = romanNumeralsDecimal(input1);
       let two = romanNumeralsDecimal(input2);
       calculate(one, two);
@@ -90,6 +84,7 @@ function App() {
       !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
       if (removed === action) {
         action = "";
+        input = `${input1}`;
       }
 
       !action ? checkInput(input1) : checkInput(input2);
@@ -125,7 +120,7 @@ function App() {
           <div className="keyboard">
             <div className="controlls-container">
               <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>Reset</button>
-              <button className="controll two active img-container"><img src={deleteIcon} className="two" alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)} /></button>
+              <button className="controll two active img-container"><img src={deleteIcon} alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)} /></button>
               <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
                 if (cal) {
                   handleClick(e.target);
@@ -157,7 +152,8 @@ function App() {
         </div>
       </section>
       <footer>
-        <p> Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update" target="_blank" rel="noopener noreferrer">Erik</a>
+        <p>
+          Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update" target="_blank" rel="noopener noreferrer">Erik</a>
         </p>
       </footer>
     </div>
