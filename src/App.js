@@ -14,18 +14,17 @@ function App() {
   let calc = useRef();
   let cal = false;
   let error = "wrong input";
-  let inOutPut = useRef()
-  let display = useRef()
+  let inOutPut = useRef();
+  let display = useRef();
 
   const calculate = (a, b) => {
-    let sum = 0
+    let sum = 0;
     switch (actionValue) {
       case "add":
         sum = a + b;
         break;
       case "subtract":
         sum = a - b;
-
         break;
       case "multiplication":
         sum = a * b;
@@ -50,26 +49,27 @@ function App() {
 
   const checkInput = (arg) => {
     if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
-      display.current.classList.remove("error")
-      display.current.classList.add("right")
+      display.current.classList.remove("error");
+      display.current.classList.add("right");
     } else {
-      display.current.classList.remove("right")
-      display.current.classList.add("error")
+      display.current.classList.remove("right");
+      display.current.classList.add("error");
     }
   }
 
   const handleClick = (elem) => {
     if (elem.dataset.values === "value") {
       !action ? input1 += elem.innerHTML : input2 += elem.innerHTML;
-      !action ? input = `${input1}` : input = `${input1}${action}${input2}`
+      !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
       inOutPut.current.innerHTML = input;
       !action ? checkInput(input1) : checkInput(input2);
     }
 
     if (elem.dataset.action === "action") {
       action = elem.innerHTML;
-      actionValue = elem.dataset.actionvalue
-      inOutPut.current.innerHTML = `${input}${action}`;
+      actionValue = elem.dataset.actionvalue;
+      input = `${input1}${action}`;
+      inOutPut.current.innerHTML = input;
     }
 
     if (elem.dataset.reset === "=") {
@@ -79,11 +79,13 @@ function App() {
     }
 
     if (elem.dataset.reset === "C") {
-      let removed = input.split("").pop()
-      !action && removed !== action ? input1 = input1.slice(0, input1.length - 1) : input2 = input2.slice(0, input2.length - 1);
+      let removed = input.split("").pop();
+      !action ? input1 = input1.slice(0, input1.length - 1) : input2 = input2.slice(0, input2.length - 1);
       !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
+      
       if (removed === action) {
         action = "";
+        actionValue = "";
         input = `${input1}`;
       }
 
@@ -93,16 +95,17 @@ function App() {
 
     if (elem.dataset.reset === "reset") {
       inOutPut.current.innerHTML = "";
+      input = "";
       input1 = "";
       input2 = "";
       action = "";
     }
 
     if (input2) {
-      calc.current.classList.add("active")
+      calc.current.classList.add("active");
       cal = true;
     } else {
-      calc.current.classList.remove("active")
+      calc.current.classList.remove("active");
       cal = false;
     }
   }
