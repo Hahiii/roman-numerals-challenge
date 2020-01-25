@@ -112,7 +112,7 @@ function App() {
       <header className="App-header">
         <h1>Roman Numerals</h1>
       </header>
-      <section className="calculator">
+      <section className="calculator" data-testid="calculator">
         <div className="box">
           <div className="screen" ref={display}>
             <h1 ref={inOutPut}></h1>
