@@ -119,7 +119,7 @@ function App() {
           </div>
           <div className="keyboard">
             <div className="controlls-container">
-              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>Reset</button>
+              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>reset</button>
               <button className="controll two active img-container"><img src={deleteIcon} alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)} /></button>
               <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
                 if (cal) {
