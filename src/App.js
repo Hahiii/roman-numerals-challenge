@@ -134,7 +134,6 @@ function App() {
       setLeftNum(leftNum.slice(0, leftNum.length - 1));
     }
     if (operationSign.label && !rightNum) {
-      setOperationSign(operationSign.label.slice(0, operationSign.label.length - 1));
       setOperationSign({
         label: "",
         value: ""
