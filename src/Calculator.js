@@ -125,6 +125,9 @@ function Calculator() {
     }
 
     const backspace = () => {
+        if (result) {
+            resetResult();
+        }
         if (leftNum && !operationSign.label) {
             setLeftNum(leftNum.slice(0, leftNum.length - 1));
         }
