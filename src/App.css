@@ -10,6 +10,7 @@ footer {
 button {
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 img {
@@ -26,7 +27,7 @@ img {
   background-color: #f6ebe3;
   border-radius: 30px;
   color: #f4ece3;
-  box-shadow: 0 0 30px pink;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border: 1px solid #dedede;
   padding: 10px 10px 30px;
 }
@@ -60,6 +61,10 @@ img {
   padding: 30px;
   flex: 1 0 33.33%;
   color: white;
+}
+
+.control:focus {
+  outline: 1px dotted;
 }
 
 .one {
@@ -116,6 +121,10 @@ img {
   background-color: #938d87;
 }
 
+.calc-item:focus {
+  outline: none;
+}
+
 .val-item {
   font-size: 2rem;
   padding: 30px;
@@ -127,12 +136,7 @@ img {
 }
 
 .val-item:focus {
-  outline: none;
-  border: 1px dotted;
-}
-
-.active {
-  cursor: pointer;
+  outline: 1px dotted;
 }
 
 footer {
@@ -140,13 +144,14 @@ footer {
 }
 
 .error {
-  box-shadow: 0px 0px 8px 0px red;
-}
-
-.right {
-  box-shadow: 0px 0px 8px 0px green;
+  box-shadow: inset 0px 0px 20px 0px rgba(255, 0, 0, 0.2);
+  background: #ffcccc;
 }
 
 .img-container {
   padding: 0px 10px;
+}
+
+button[disabled] {
+  cursor: auto;
 }

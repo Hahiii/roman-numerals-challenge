@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import romanNumeralsDecimal from './RomanToDecimal'
 import decimalRoman from './DecimalToRoman'
 import deleteIcon from './images/delete.png'
-
 
 function App() {
   const romanLettersList = [
@@ -58,6 +57,7 @@ function App() {
       value: "division"
     }
   ];
+  // let [error, setError] = useState(false);
   let [result, setResult] = useState('');
   let [leftNum, setLeftNum] = useState('');
   let [rightNum, setRightNum] = useState('');
@@ -65,9 +65,8 @@ function App() {
     label: "",
     value: ""
   });
-  let error = "wrong input";
-  let inOutPut = useRef();
-  let display = useRef();
+  let errorMsg = "wrong input";
+  let error = false;
 
   const calculate = () => {
     let leftNumDecimal = romanNumeralsDecimal(leftNum);
@@ -91,8 +90,12 @@ function App() {
 
     decimalRoman(result) && result < 4000 && result > 0 ?
       setResult(decimalRoman(result)) :
-      setResult(error);
-    setLeftNum("");
+      setResult(errorMsg);
+    if (result < 4000 && result > 0) {
+      setLeftNum(decimalRoman(result));
+    } else {
+      setLeftNum("");
+    }
     setRightNum("");
     setOperationSign({
       label: "",
@@ -100,29 +103,27 @@ function App() {
     });
   }
 
-  //-------- still to fix
-  const checkInput = (arg) => {
-    if (leftNum) {
-      if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
-        display.current.classList.remove("error");
-        display.current.classList.add("right");
-      } else {
-        display.current.classList.remove("right");
-        display.current.classList.add("error");
-      }
+
+  const checkInput = () => {
+    let isCorrect = (romanNumeralsDecimal(leftNum) === Number(romanNumeralsDecimal(leftNum)));
+    if (rightNum) {
+      isCorrect = (romanNumeralsDecimal(leftNum) === Number(romanNumeralsDecimal(leftNum))) &&
+        (romanNumeralsDecimal(rightNum) === Number(romanNumeralsDecimal(rightNum)));
     }
+    error = !isCorrect;
+    return isCorrect;
   }
-//--------- 
+
   const handleClick = (elem) => {
     if (result) {
-      setResult("");
+      resetResult();
     }
     if (!operationSign.value) {
-      setLeftNum(leftNum + elem.val);
-      checkInput(leftNum)
+      let leftNumTemp = leftNum + elem.val;
+      setLeftNum(leftNumTemp);
     } else {
-      setRightNum(rightNum + elem.val);
-      checkInput(rightNum);
+      let rightNumTemp = rightNum + elem.val;
+      setRightNum(rightNumTemp);
     }
   }
 
@@ -130,6 +131,7 @@ function App() {
     if (leftNum && !operationSign.label) {
       setLeftNum(leftNum.slice(0, leftNum.length - 1));
     }
+
     if (operationSign.label && !rightNum) {
       setOperationSign({
         label: "",
@@ -151,6 +153,10 @@ function App() {
     });
   }
 
+  const resetResult = () => {
+    setResult("");
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -158,17 +164,17 @@ function App() {
       </header>
       <section className="calculator" data-testid="calculator">
         <div className="box">
-          <div className="screen" ref={display}>
-            <h1 ref={inOutPut} dangerouslySetInnerHTML={
+          <div className={`screen ${leftNum && (checkInput() ? `` : `error`)}`}>
+            <h1 dangerouslySetInnerHTML={
               { __html: `${!result ? `${leftNum}${operationSign.label}${rightNum}` : result}` }
             }></h1>
           </div>
           <div className="keyboard">
             <div className="controls-container">
-              <button className="control one active" onClick={reset}>reset</button>
-              <button className="control two active img-container"><img src={deleteIcon} onClick={backspace} /></button>
-              <button className={`control tree ${rightNum ? "active" : ""}`} onClick={(e) => {
-                if (rightNum) {
+              <button className="control one" onClick={reset}>reset</button>
+              <button className="control two img-container"><img src={deleteIcon} onClick={backspace} /></button>
+              <button className={`control tree`} disabled={!rightNum || error} onClick={(e) => {
+                if (rightNum && !error) {
                   calculate();
                 }
               }}>=</button>
@@ -176,12 +182,12 @@ function App() {
             <div className="values-container">
               <div className="values">
                 {romanLettersList.map((romanLetter) => {
-                  return <button className="val-item active" onClick={() => {
-                    handleClick(romanLetter)
+                  return <button className="val-item" disabled={error} onClick={() => {
+                    handleClick(romanLetter);
                   }} key={romanLetter.id}>{romanLetter.val}</button>
                 })}
-                <button className="val-item">.</button>
-                <button className="val-item">S</button>
+                <button className="val-item" disabled={error}>.</button>
+                <button className="val-item" disabled={error}>S</button>
               </div>
               <div className="calc-controls-container">
                 <button className="calc-item"></button>
@@ -189,11 +195,12 @@ function App() {
                 {
                   operationsList.map((operation) => {
                     return (
-                      <button className={`calc-item ${leftNum ? "active" : ""}`} onClick={() => {
-                        setOperationSign(operation);
+                      <button className={`calc-item`} disabled={error || rightNum} onClick={() => {
                         if (result) {
-                          setLeftNum(result);
-                          setResult("");
+                          resetResult();
+                        }
+                        if (leftNum && !rightNum) {
+                          setOperationSign(operation);
                         }
                       }}
                         dangerouslySetInnerHTML={{ __html: operation.label }} key={operation.id}></button>)
