@@ -2,61 +2,11 @@ import React, { useState } from 'react';
 import romanNumeralsDecimal from './RomanToDecimal'
 import decimalRoman from './DecimalToRoman'
 import deleteIcon from './images/delete.png'
+import romanLettersList from './data/romanLettersList'
+import operationsList from './data/operationsList'
 import Screen from './Screen'
 
 function Calculator() {
-    const romanLettersList = [
-        {
-            id: 1,
-            val: 'C'
-        },
-        {
-            id: 2,
-            val: 'D'
-        },
-        {
-            id: 3,
-            val: 'M'
-        },
-        {
-            id: 4,
-            val: 'V'
-        },
-        {
-            id: 5,
-            val: 'X'
-        },
-        {
-            id: 6,
-            val: 'L'
-        },
-        {
-            id: 7,
-            val: 'I'
-        }
-    ];
-    const operationsList = [
-        {
-            id: 1,
-            label: "&#43;",
-            value: "add"
-        },
-        {
-            id: 2,
-            label: "&#8722;",
-            value: "subtract"
-        },
-        {
-            id: 3,
-            label: "&#215;",
-            value: "multiplication"
-        },
-        {
-            id: 4,
-            label: "&#247;",
-            value: "division"
-        }
-    ];
     let [result, setResult] = useState('');
     let [leftNum, setLeftNum] = useState('');
     let [rightNum, setRightNum] = useState('');
