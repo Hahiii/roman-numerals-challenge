@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import romanNumeralsDecimal from './RomanToDecimal'
 import decimalRoman from './DecimalToRoman'
 import deleteIcon from './images/delete.png'
+import Screen from './Screen'
 
 function Calculator() {
     const romanLettersList = [
@@ -160,11 +161,10 @@ function Calculator() {
     return (
         <section className="calculator" data-testid="calculator">
             <div className="box">
-                <div className={`screen ${leftNum && (checkInput() ? `` : `error`)}`}>
-                    <h1 dangerouslySetInnerHTML={
-                        { __html: `${!result ? `${leftNum}${operationSign.label}${rightNum}` : result}` }
-                    }></h1>
-                </div>
+                <Screen
+                    hasError={leftNum && (!checkInput())}
+                    content={!result ? `${leftNum}${operationSign.label}${rightNum}` : result}
+                />
                 <div className="keyboard">
                     <div className="controls-container">
                         <button className="control one" onClick={reset}>reset</button>
