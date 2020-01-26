@@ -1,16 +1,25 @@
 body {
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+  margin: 0;
+}
 
- button {
+button {
   font-family: inherit;
- }
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: auto;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

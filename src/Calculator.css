@@ -1,0 +1,120 @@
+.box {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f6ebe3;
+  border-radius: 30px;
+  color: #f4ece3;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid #dedede;
+  padding: 10px 10px 30px;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #f6ebe3;
+}
+
+.controls-container {
+  display: flex;
+}
+
+.control {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 30px;
+  flex: 1 0 33.33%;
+  color: white;
+}
+
+.control:focus {
+  outline: 1px dotted;
+}
+
+.one {
+  background: #d2666f;
+}
+
+.one:active {
+  background: #eb737d;
+}
+
+.two {
+  background: #a66f72;
+}
+
+.two:active {
+  background: #c78689;
+}
+
+.three {
+  background: #b8b2ab;
+}
+
+.three:active {
+  background: #a39d96;
+}
+
+.values-container {
+  display: flex;
+  border-radius: 0px 0px 30px 30px;
+  border-radius: 0px 0px 30px 30px;
+  overflow: hidden;
+  color: #878280;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 66.66%;
+}
+
+.calc-controls-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.calc-item {
+  font-size: 2rem;
+  padding: 20px;
+  flex: 1;
+  color: white;
+  background-color: #7c7875;
+}
+
+.calc-item:active {
+  background-color: #938d87;
+}
+
+.calc-item:focus {
+  outline: none;
+}
+
+.val-item {
+  font-size: 2rem;
+  padding: 30px;
+  flex: 1;
+}
+
+.val-item:active {
+  background: #e4deda;
+}
+
+.val-item:focus {
+  outline: 1px dotted;
+}
+
+/* backspace icon */
+.icon-button {
+  padding: 0px 10px;
+}
+
+.icon-button img {
+  display: block;
+  width: 30px;
+  padding: 30px 40px;
+  margin: 0;
+}

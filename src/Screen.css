@@ -1,0 +1,16 @@
+.screen {
+  height: 300px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  align-items: center;
+  background-color: #7c7875;
+  border-radius: 23px 23px 0px 0px;
+  color: white;
+  font-size: 32px;
+}
+
+.error {
+  box-shadow: inset 0px 0px 20px 0px rgba(255, 0, 0, 0.2);
+  background: #ffcccc;
+}

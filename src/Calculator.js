@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import romanNumeralsDecimal from './RomanToDecimal'
-import decimalRoman from './DecimalToRoman'
-import deleteIcon from './images/delete.png'
-import romanLettersList from './data/romanLettersList'
-import operationsList from './data/operationsList'
-import Screen from './Screen'
+import romanNumeralsDecimal from './RomanToDecimal';
+import decimalRoman from './DecimalToRoman';
+import deleteIcon from './images/delete.png';
+import romanLettersList from './data/romanLettersList';
+import operationsList from './data/operationsList';
+import Screen from './Screen';
+import './Calculator.css';
 
 function Calculator() {
     let [result, setResult] = useState('');
@@ -118,8 +119,8 @@ function Calculator() {
                 <div className="keyboard">
                     <div className="controls-container">
                         <button className="control one" onClick={reset}>reset</button>
-                        <button className="control two img-container"><img src={deleteIcon} onClick={backspace} /></button>
-                        <button className={`control tree`} disabled={!rightNum || error} onClick={(e) => {
+                        <button className="control two icon-button"><img src={deleteIcon} onClick={backspace} /></button>
+                        <button className={`control three`} disabled={!rightNum || error} onClick={(e) => {
                             if (rightNum && !error) {
                                 calculate();
                             }

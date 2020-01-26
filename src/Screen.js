@@ -1,4 +1,5 @@
 import React from 'react';
+import './Screen.css';
 
 function Screen({ hasError, content }) {
     return (
