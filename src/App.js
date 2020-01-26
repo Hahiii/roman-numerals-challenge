@@ -77,23 +77,25 @@ function App() {
     let leftNumDecimal = romanNumeralsDecimal(leftNum);
     let rightNumDecimal = romanNumeralsDecimal(rightNum);
 
-    let sum = 0;
+    let result = 0;
     switch (operationSign.value) {
       case "add":
-        sum = leftNumDecimal + rightNumDecimal;
+        result = leftNumDecimal + rightNumDecimal;
         break;
       case "subtract":
-        sum = leftNumDecimal - rightNumDecimal;
+        result = leftNumDecimal - rightNumDecimal;
         break;
       case "multiplication":
-        sum = leftNumDecimal * rightNumDecimal;
+        result = leftNumDecimal * rightNumDecimal;
         break;
       case "division":
-        sum = leftNumDecimal / rightNumDecimal;
+        result = leftNumDecimal / rightNumDecimal;
         break;
     }
 
-    decimalRoman(sum) && sum < 4000 && sum > 0 ? setResult(decimalRoman(sum)) : setResult(error);
+    decimalRoman(result) && result < 4000 && result > 0 ?
+      setResult(decimalRoman(result)) :
+      setResult(error);
     setLeftNum("");
     setRightNum("");
     setOperationSign({
