@@ -6,14 +6,6 @@ import deleteIcon from './images/delete.png'
 
 
 function App() {
-  let [result, setResult] = useState('');
-  let [leftNum, setLeftNum] = useState('');
-  let [rightNum, setRightNum] = useState('');
-  let [operationSign, setOperationSign] = useState({
-    label: "",
-    value: ""
-  });
-
   const romanLettersList = [
     {
       id: 1,
@@ -44,13 +36,11 @@ function App() {
       val: 'I'
     }
   ];
-
   const operationsList = [
     {
       id: 1,
       label: "&#43;",
       value: "add"
-
     },
     {
       id: 2,
@@ -67,8 +57,14 @@ function App() {
       label: "&#247;",
       value: "division"
     }
-  ]
-
+  ];
+  let [result, setResult] = useState('');
+  let [leftNum, setLeftNum] = useState('');
+  let [rightNum, setRightNum] = useState('');
+  let [operationSign, setOperationSign] = useState({
+    label: "",
+    value: ""
+  });
   let error = "wrong input";
   let inOutPut = useRef();
   let display = useRef();
@@ -104,6 +100,7 @@ function App() {
     });
   }
 
+  //-------- still to fix
   const checkInput = (arg) => {
     if (leftNum) {
       if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
@@ -115,7 +112,7 @@ function App() {
       }
     }
   }
-
+//--------- 
   const handleClick = (elem) => {
     if (result) {
       setResult("");
@@ -162,12 +159,14 @@ function App() {
       <section className="calculator" data-testid="calculator">
         <div className="box">
           <div className="screen" ref={display}>
-            <h1 ref={inOutPut} dangerouslySetInnerHTML={{ __html: `${!result ? `${leftNum}${operationSign.label}${rightNum}` : result}` }}></h1>
+            <h1 ref={inOutPut} dangerouslySetInnerHTML={
+              { __html: `${!result ? `${leftNum}${operationSign.label}${rightNum}` : result}` }
+            }></h1>
           </div>
           <div className="keyboard">
             <div className="controls-container">
-              <button className="control one active" onClick={(e) => reset()}>reset</button>
-              <button className="control two active img-container"><img src={deleteIcon} onClick={(e) => backspace()} /></button>
+              <button className="control one active" onClick={reset}>reset</button>
+              <button className="control two active img-container"><img src={deleteIcon} onClick={backspace} /></button>
               <button className={`control tree ${rightNum ? "active" : ""}`} onClick={(e) => {
                 if (rightNum) {
                   calculate();
