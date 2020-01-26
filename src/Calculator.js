@@ -19,10 +19,25 @@ function Calculator() {
     let error = false;
 
     const calculate = () => {
+        let result = runCalculation();
+        result ? setResult(decimalRoman(result)) : setResult(errorMsg);
+        if (result) {
+            setLeftNum(decimalRoman(result));
+        } else {
+            setLeftNum("");
+        }
+        setRightNum("");
+        setOperationSign({
+            label: "",
+            value: ""
+        });
+    }
+
+    const runCalculation = () => {
         let leftNumDecimal = romanNumeralsDecimal(leftNum);
         let rightNumDecimal = romanNumeralsDecimal(rightNum);
-
         let result = 0;
+
         switch (operationSign.value) {
             case "add":
                 result = leftNumDecimal + rightNumDecimal;
@@ -36,28 +51,24 @@ function Calculator() {
             case "division":
                 result = leftNumDecimal / rightNumDecimal;
                 break;
+            default:
+                result = 0;
+                break;
         }
 
-        decimalRoman(result) && result < 4000 && result > 0 ?
-            setResult(decimalRoman(result)) :
-            setResult(errorMsg);
-        if (result < 4000 && result > 0) {
-            setLeftNum(decimalRoman(result));
-        } else {
-            setLeftNum("");
-        }
-        setRightNum("");
-        setOperationSign({
-            label: "",
-            value: ""
-        });
+        return result < 3999 && result > 0 ?
+            result :
+            false;
     }
 
     const checkInput = () => {
         let isCorrect = (romanNumeralsDecimal(leftNum) === Number(romanNumeralsDecimal(leftNum)));
         if (rightNum) {
-            isCorrect = (romanNumeralsDecimal(leftNum) === Number(romanNumeralsDecimal(leftNum))) &&
-                (romanNumeralsDecimal(rightNum) === Number(romanNumeralsDecimal(rightNum)));
+            let value = runCalculation();
+            if (!value) {
+                error = true;
+                return value;
+            }
         }
         error = !isCorrect;
         return isCorrect;
@@ -119,7 +130,7 @@ function Calculator() {
                 <div className="keyboard">
                     <div className="controls-container">
                         <button className="control" onClick={reset}>reset</button>
-                        <button className="control icon-button"><img src={deleteIcon} onClick={backspace} /></button>
+                        <button className="control icon-button"><img src={deleteIcon} onClick={backspace} alt="backspace icon" /></button>
                         <button className="control" disabled={!rightNum || error} onClick={() => {
                             if (rightNum && !error) {
                                 calculate();
@@ -133,12 +144,12 @@ function Calculator() {
                                     handleClick(romanLetter);
                                 }} key={romanLetter.id}>{romanLetter.val}</button>
                             })}
-                            <button className="val-item" disabled={error}>.</button>
-                            <button className="val-item" disabled={error}>S</button>
+                            <button className="val-item" disabled={true}>.</button>
+                            <button className="val-item" disabled={true}>S</button>
                         </div>
                         <div className="calc-controls-container">
-                            <button className="calc-item"></button>
-                            <button className="calc-item"></button>
+                            <button className="calc-item" disabled={true}>Max 3999</button>
+                            <button className="calc-item" disabled={true}>Min 1</button>
                             {
                                 operationsList.map((operation) => {
                                     return (

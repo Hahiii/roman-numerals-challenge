@@ -46,27 +46,27 @@
 }
 
 .control:nth-child(1) {
-  background: var(--resetBackground)
+  background: var(--resetBackground);
 }
 
 .control:nth-child(2) {
-  background: var(--backSpaceBackground)
+  background: var(--backSpaceBackground);
 }
 
 .control:nth-child(3) {
-  background: var(--calcBackground)
+  background: var(--calcBackground);
 }
 
 .control:nth-child(1):active {
-  background: var(--activeResetBackground)
+  background: var(--activeResetBackground);
 }
 
 .control:nth-child(2):active {
-  background: var(--activeBackSpaceBackground)
+  background: var(--activeBackSpaceBackground);
 }
 
 .control:nth-child(3):active {
-  background: var(--activeCalcBackground)
+  background: var(--activeCalcBackground);
 }
 
 .control:nth-child(3)[disabled]:active {
@@ -99,6 +99,12 @@
   flex: 1;
   color: var(--whiteColor);
   background-color: #7c7875;
+}
+
+.calc-item:nth-child(1),
+.calc-item:nth-child(2) {
+  font-size: 1.2rem;
+  color: rgb(179, 179, 179);
 }
 
 .calc-item:focus {
