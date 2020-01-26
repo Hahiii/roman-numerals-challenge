@@ -6,9 +6,9 @@
   --calcBackground: #b8b2ab;
 
   /* :active colors */
-  --activeresetBackground: #eb737d;
-  --activebackSpaceBackground: #c78689;
-  --activecalcBackground: #a39d96;
+  --activeResetBackground: #eb737d;
+  --activeBackSpaceBackground: #c78689;
+  --activeCalcBackground: #a39d96;
 }
 
 .box {
@@ -48,29 +48,30 @@
 .control:nth-child(1) {
   background: var(--resetBackground)
 }
+
 .control:nth-child(2) {
   background: var(--backSpaceBackground)
 }
+
 .control:nth-child(3) {
   background: var(--calcBackground)
 }
 
 .control:nth-child(1):active {
-  background: var(--activeresetBackground)
+  background: var(--activeResetBackground)
 }
 
 .control:nth-child(2):active {
-  background: var(--activebackSpaceBackground)
+  background: var(--activeBackSpaceBackground)
 }
 
 .control:nth-child(3):active {
-  background: var(--activecalcBackground)
+  background: var(--activeCalcBackground)
 }
 
 .control:nth-child(3)[disabled]:active {
   background: var(--calcBackground);
 }
-
 
 .values-container {
   display: flex;
