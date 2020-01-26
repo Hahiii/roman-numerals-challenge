@@ -1,10 +1,22 @@
+:root {
+  --whiteColor: white;
+  --boxBackgroundColor: #f6ebe3;
+  --resetBackground: #d2666f;
+  --backSpaceBackground: #a66f72;
+  --calcBackground: #b8b2ab;
+
+  /* :active colors */
+  --activeresetBackground: #eb737d;
+  --activebackSpaceBackground: #c78689;
+  --activecalcBackground: #a39d96;
+}
+
 .box {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  background-color: #f6ebe3;
+  background-color: var(--boxBackgroundColor);
   border-radius: 30px;
-  color: #f4ece3;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border: 1px solid #dedede;
   padding: 10px 10px 30px;
@@ -14,7 +26,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #f6ebe3;
+  background-color: var(--boxBackgroundColor);
 }
 
 .controls-container {
@@ -26,36 +38,39 @@
   font-size: 1.5rem;
   padding: 30px;
   flex: 1 0 33.33%;
-  color: white;
+  color: var(--whiteColor);
 }
 
 .control:focus {
   outline: 1px dotted;
 }
 
-.one {
-  background: #d2666f;
+.control:nth-child(1) {
+  background: var(--resetBackground)
+}
+.control:nth-child(2) {
+  background: var(--backSpaceBackground)
+}
+.control:nth-child(3) {
+  background: var(--calcBackground)
 }
 
-.one:active {
-  background: #eb737d;
+.control:nth-child(1):active {
+  background: var(--activeresetBackground)
 }
 
-.two {
-  background: #a66f72;
+.control:nth-child(2):active {
+  background: var(--activebackSpaceBackground)
 }
 
-.two:active {
-  background: #c78689;
+.control:nth-child(3):active {
+  background: var(--activecalcBackground)
 }
 
-.three {
-  background: #b8b2ab;
+.control:nth-child(3)[disabled]:active {
+  background: var(--calcBackground);
 }
 
-.three:active {
-  background: #a39d96;
-}
 
 .values-container {
   display: flex;
@@ -81,16 +96,20 @@
   font-size: 2rem;
   padding: 20px;
   flex: 1;
-  color: white;
+  color: var(--whiteColor);
   background-color: #7c7875;
+}
+
+.calc-item:focus {
+  outline: none;
 }
 
 .calc-item:active {
   background-color: #938d87;
 }
 
-.calc-item:focus {
-  outline: none;
+.calc-item[disabled]:active {
+  background-color: #7c7875;
 }
 
 .val-item {
@@ -99,12 +118,16 @@
   flex: 1;
 }
 
+.val-item:focus {
+  outline: 1px dotted;
+}
+
 .val-item:active {
   background: #e4deda;
 }
 
-.val-item:focus {
-  outline: 1px dotted;
+.val-item[disabled]:active {
+  background-color: initial;
 }
 
 /* backspace icon */

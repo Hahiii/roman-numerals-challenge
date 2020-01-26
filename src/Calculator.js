@@ -118,9 +118,9 @@ function Calculator() {
                 />
                 <div className="keyboard">
                     <div className="controls-container">
-                        <button className="control one" onClick={reset}>reset</button>
-                        <button className="control two icon-button"><img src={deleteIcon} onClick={backspace} /></button>
-                        <button className={`control three`} disabled={!rightNum || error} onClick={(e) => {
+                        <button className="control" onClick={reset}>reset</button>
+                        <button className="control icon-button"><img src={deleteIcon} onClick={backspace} /></button>
+                        <button className="control" disabled={!rightNum || error} onClick={() => {
                             if (rightNum && !error) {
                                 calculate();
                             }
@@ -142,7 +142,7 @@ function Calculator() {
                             {
                                 operationsList.map((operation) => {
                                     return (
-                                        <button className={`calc-item`} disabled={error || rightNum} onClick={() => {
+                                        <button className={`calc-item`} disabled={!leftNum || error || rightNum} onClick={() => {
                                             if (result) {
                                                 resetResult();
                                             }
