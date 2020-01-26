@@ -50,11 +50,11 @@ img {
   background-color: #f6ebe3;
 }
 
-.controlls-container {
+.controls-container {
   display: flex;
 }
 
-.controll {
+.control {
   text-align: center;
   font-size: 1.5rem;
   padding: 30px;
@@ -98,7 +98,7 @@ img {
   max-width: 66.66%;
 }
 
-.calc-controlls-container {
+.calc-controls-container {
   display: flex;
   flex-wrap: wrap;
   flex: 1;

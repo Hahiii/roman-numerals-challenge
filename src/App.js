@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 import romanNumeralsDecimal from './RomanToDecimal'
 import decimalRoman from './DecimalToRoman'
@@ -6,108 +6,151 @@ import deleteIcon from './images/delete.png'
 
 
 function App() {
-  let input = "";
-  let input1 = "";
-  let input2 = "";
-  let action = "";
-  let actionValue = "";
-  let calc = useRef();
-  let cal = false;
+  let [result, setResult] = useState('');
+  let [leftNum, setLeftNum] = useState('');
+  let [rightNum, setRightNum] = useState('');
+  let [operationSign, setOperationSign] = useState({
+    label: "",
+    value: ""
+  });
+
+  const romanLettersList = [
+    {
+      id: 1,
+      val: 'C'
+    },
+    {
+      id: 2,
+      val: 'D'
+    },
+    {
+      id: 3,
+      val: 'M'
+    },
+    {
+      id: 4,
+      val: 'V'
+    },
+    {
+      id: 5,
+      val: 'X'
+    },
+    {
+      id: 6,
+      val: 'L'
+    },
+    {
+      id: 7,
+      val: 'I'
+    }
+  ];
+
+  const operationsList = [
+    {
+      id: 1,
+      label: "&#43;",
+      value: "add"
+
+    },
+    {
+      id: 2,
+      label: "&#8722;",
+      value: "subtract"
+    },
+    {
+      id: 3,
+      label: "&#215;",
+      value: "multiplication"
+    },
+    {
+      id: 4,
+      label: "&#247;",
+      value: "division"
+    }
+  ]
+
   let error = "wrong input";
   let inOutPut = useRef();
   let display = useRef();
 
-  const calculate = (a, b) => {
+  const calculate = () => {
+    let leftNumDecimal = romanNumeralsDecimal(leftNum);
+    let rightNumDecimal = romanNumeralsDecimal(rightNum);
+
     let sum = 0;
-    switch (actionValue) {
+    switch (operationSign.value) {
       case "add":
-        sum = a + b;
+        sum = leftNumDecimal + rightNumDecimal;
         break;
       case "subtract":
-        sum = a - b;
+        sum = leftNumDecimal - rightNumDecimal;
         break;
       case "multiplication":
-        sum = a * b;
+        sum = leftNumDecimal * rightNumDecimal;
         break;
       case "division":
-        sum = a / b;
+        sum = leftNumDecimal / rightNumDecimal;
         break;
     }
 
-    let res = decimalRoman(sum)
-    input = "";
-    input1 = "";
-    input2 = "";
-    action = "";
-    actionValue = "";
-    if (res) {
-      inOutPut.current.innerHTML = res;
-      return;
-    }
-    inOutPut.current.innerHTML = error;
+    decimalRoman(sum) && sum < 4000 && sum > 0 ? setResult(decimalRoman(sum)) : setResult(error);
+    setLeftNum("");
+    setRightNum("");
+    setOperationSign({
+      label: "",
+      value: ""
+    });
   }
 
   const checkInput = (arg) => {
-    if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
-      display.current.classList.remove("error");
-      display.current.classList.add("right");
-    } else {
-      display.current.classList.remove("right");
-      display.current.classList.add("error");
+    if (leftNum) {
+      if (romanNumeralsDecimal(arg) === Number(romanNumeralsDecimal(arg))) {
+        display.current.classList.remove("error");
+        display.current.classList.add("right");
+      } else {
+        display.current.classList.remove("right");
+        display.current.classList.add("error");
+      }
     }
   }
 
   const handleClick = (elem) => {
-    if (elem.dataset.values === "value") {
-      !action ? input1 += elem.innerHTML : input2 += elem.innerHTML;
-      !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
-      inOutPut.current.innerHTML = input;
-      !action ? checkInput(input1) : checkInput(input2);
+    if (result) {
+      setResult("");
     }
-
-    if (elem.dataset.action === "action") {
-      action = elem.innerHTML;
-      actionValue = elem.dataset.actionvalue;
-      input = `${input1}${action}`;
-      inOutPut.current.innerHTML = input;
-    }
-
-    if (elem.dataset.reset === "=") {
-      let one = romanNumeralsDecimal(input1);
-      let two = romanNumeralsDecimal(input2);
-      calculate(one, two);
-    }
-
-    if (elem.dataset.reset === "C") {
-      let removed = input.split("").pop();
-      !action ? input1 = input1.slice(0, input1.length - 1) : input2 = input2.slice(0, input2.length - 1);
-      !action ? input = `${input1}` : input = `${input1}${action}${input2}`;
-      
-      if (removed === action) {
-        action = "";
-        actionValue = "";
-        input = `${input1}`;
-      }
-
-      !action ? checkInput(input1) : checkInput(input2);
-      inOutPut.current.innerHTML = input;
-    }
-
-    if (elem.dataset.reset === "reset") {
-      inOutPut.current.innerHTML = "";
-      input = "";
-      input1 = "";
-      input2 = "";
-      action = "";
-    }
-
-    if (input2) {
-      calc.current.classList.add("active");
-      cal = true;
+    if (!operationSign.value) {
+      setLeftNum(leftNum + elem.val);
+      checkInput(leftNum)
     } else {
-      calc.current.classList.remove("active");
-      cal = false;
+      setRightNum(rightNum + elem.val);
+      checkInput(rightNum);
     }
+  }
+
+  const backspace = () => {
+    if (leftNum && !operationSign.label) {
+      setLeftNum(leftNum.slice(0, leftNum.length - 1));
+    }
+    if (operationSign.label && !rightNum) {
+      setOperationSign(operationSign.label.slice(0, operationSign.label.length - 1));
+      setOperationSign({
+        label: "",
+        value: ""
+      });
+    }
+    if (rightNum) {
+      setRightNum(rightNum.slice(0, rightNum.length - 1));
+    }
+  }
+
+  const reset = () => {
+    setLeftNum('');
+    setRightNum('');
+    setResult("");
+    setOperationSign({
+      label: "",
+      value: ""
+    });
   }
 
   return (
@@ -118,37 +161,43 @@ function App() {
       <section className="calculator" data-testid="calculator">
         <div className="box">
           <div className="screen" ref={display}>
-            <h1 ref={inOutPut}></h1>
+            <h1 ref={inOutPut} dangerouslySetInnerHTML={{ __html: `${!result ? `${leftNum}${operationSign.label}${rightNum}` : result}` }}></h1>
           </div>
           <div className="keyboard">
-            <div className="controlls-container">
-              <button className="controll one active" data-reset="reset" onClick={(e) => handleClick(e.target)}>reset</button>
-              <button className="controll two active img-container"><img src={deleteIcon} alt="delete icon" data-reset="C" onClick={(e) => handleClick(e.target)} /></button>
-              <button className="controll tree" data-reset="=" ref={calc} onClick={(e) => {
-                if (cal) {
-                  handleClick(e.target);
+            <div className="controls-container">
+              <button className="control one active" onClick={(e) => reset()}>reset</button>
+              <button className="control two active img-container"><img src={deleteIcon} onClick={(e) => backspace()} /></button>
+              <button className={`control tree ${rightNum ? "active" : ""}`} onClick={(e) => {
+                if (rightNum) {
+                  calculate();
                 }
               }}>=</button>
             </div>
             <div className="values-container">
               <div className="values">
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>C</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>D</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>M</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>V</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>X</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>L</button>
-                <button className="val-item active" data-values="value" onClick={(e) => handleClick(e.target)}>I</button>
+                {romanLettersList.map((romanLetter) => {
+                  return <button className="val-item active" onClick={() => {
+                    handleClick(romanLetter)
+                  }} key={romanLetter.id}>{romanLetter.val}</button>
+                })}
                 <button className="val-item">.</button>
                 <button className="val-item">S</button>
               </div>
-              <div className="calc-controlls-container">
+              <div className="calc-controls-container">
                 <button className="calc-item"></button>
                 <button className="calc-item"></button>
-                <button className="calc-item active" data-action="action" data-actionvalue="add" onClick={(e) => handleClick(e.target)}>&#43;</button>
-                <button className="calc-item active" data-action="action" data-actionvalue="multiplication" onClick={(e) => handleClick(e.target)}>&#215;</button>
-                <button className="calc-item active" data-action="action" data-actionvalue="subtract" onClick={(e) => handleClick(e.target)}>&#8722;</button>
-                <button className="calc-item active" data-action="action" data-actionvalue="division" onClick={(e) => handleClick(e.target)}>&#247;</button>
+                {
+                  operationsList.map((operation) => {
+                    return (
+                      <button className={`calc-item ${leftNum ? "active" : ""}`} onClick={() => {
+                        setOperationSign(operation);
+                        if (result) {
+                          setLeftNum(result);
+                          setResult("");
+                        }
+                      }}
+                        dangerouslySetInnerHTML={{ __html: operation.label }} key={operation.id}></button>)
+                  })}
               </div>
             </div>
           </div>
@@ -159,7 +208,7 @@ function App() {
           Design by: <a href="https://dribbble.com/shots/6487156-Lifelimitsart-058-Calculator-Update" target="_blank" rel="noopener noreferrer">Erik</a>
         </p>
       </footer>
-    </div>
+    </div >
   );
 }
 
