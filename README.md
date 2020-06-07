@@ -4,7 +4,7 @@
 
 ## Setup
 
-Make sure you have node installed, then run `npm instally`
+Make sure you have node installed, then run `npm install`
 
 ## Run locally
 
