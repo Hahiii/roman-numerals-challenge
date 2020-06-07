@@ -8,7 +8,9 @@ Make sure you have node installed, then run `npm install`
 
 ## Run locally
 
-To run the project locally run npm start You can then open the project on [http://localhost:3000](http://localhost:3000) in the browser.
+To run the project locally run `npm start`.
+
+You can then open the project on [http://localhost:3000](http://localhost:3000) in the browser.
 
 ## Build
 
